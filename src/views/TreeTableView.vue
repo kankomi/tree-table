@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TreeTable from '@/components/TreeTable';
+import TreeTable from '@/components/TreeTable/TreeTable';
 
 let vals = [
   {
