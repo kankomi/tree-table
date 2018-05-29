@@ -9,19 +9,21 @@
           :disable-initial-sort="true"
         >
             <template slot="items" slot-scope="props">
-                <td v-for="(value, idx) of header" v-bind:key="idx" v-bind:class="{ hidden: props.item.hidden }">
+                <td 
+                  v-for="(value, idx) of header" 
+                  v-bind:key="idx" 
+                  v-bind:class="{ hidden: props.item.hidden }"
+                  v-bind:style="{minWidth: (props.item.depth * 20) + 'px'}"
+                  >
                     <!-- Expand/Collapse icon -->
                     <span v-if="idx === 0">
-                      <span v-bind:style="{'padding-left': (props.item.depth * 20) + 'px'}">
+                      <span class="block" v-bind:style="{'padding-left': (props.item.depth * 20) + 'px'}">
                         <span v-if="props.item.hasChildren">
                             <v-icon class="clickable" v-if="!props.item.expanded" @click="expandChildren(props.item)">chevron_right</v-icon>
                             <v-icon class="clickable" v-if="props.item.expanded" @click="collapseChildren(props.item)">expand_more</v-icon>
-                            {{props.item[value.value]}}
                         </span>
-                        <span v-else style="padding-left: 28px">
-                          {{props.item[value.value]}}
-                        </span>
-                        
+                        <span v-else class="block" style="padding-left: 24px"></span>
+                        {{props.item[value.value]}}
                       </span>
                     </span>
                     <!-- / Expand/Collapse icon -->
@@ -102,5 +104,8 @@ export default {
 
 .clickable {
   cursor: pointer;
+}
+.block {
+  display: inline-block;
 }
 </style>
