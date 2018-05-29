@@ -45,9 +45,19 @@ export default {
   data() {
     return {
       tableItems: [],
+      getItemById(id) {
+        for (var item of this.tableItems) {
+          if (item.id === id) {
+            return item;
+          }
+        }
+
+        return null;
+      },
       collapseChildren(parent) {
         for (var item of this.tableItems) {
-          if (item.parent === parent.id) {
+          // if (item.parent === parent.id) {
+          if (item.depth > parent.depth) {
             item.hidden = true;
           }
         }
@@ -55,13 +65,16 @@ export default {
         parent.expanded = false;
       },
       expandChildren(parent) {
+        parent.expanded = true;
+
         for (var item of this.tableItems) {
-          if (item.parent === parent.id) {
+          if (
+            item.depth > parent.depth &&
+            this.getItemById(item.parent).expanded
+          ) {
             item.hidden = false;
           }
         }
-
-        parent.expanded = true;
       }
     };
   }

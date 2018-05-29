@@ -23,6 +23,16 @@ let vals = [
           {
             id: 3,
             title: 'child3'
+          },
+          {
+            id: 5,
+            title: 'child5',
+            children: [
+              {
+                id: 6,
+                title: 'child6'
+              }
+            ]
           }
         ]
       },
@@ -47,7 +57,8 @@ export default {
         {
           text: 'The item title',
           value: 'title',
-          sortable: false
+          sortable: false,
+          readonly: false
         },
         {
           text: 'An id',
