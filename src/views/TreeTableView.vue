@@ -1,8 +1,9 @@
 <template>
     <v-container>
       <v-layout row wrap>
-        <v-flex xs6 offset-xs3>
-          <TreeTable :data="items" :headers="header"></TreeTable>
+        <v-flex xs10 offset-xs1>
+          <h1>Tree Table view</h1>
+          <TreeTable :data="items" :headers="headers"></TreeTable>
         </v-flex>
       </v-layout>
     </v-container>
@@ -59,7 +60,7 @@ export default {
   data() {
     return {
       items: vals,
-      header: [
+      headers: [
         {
           text: 'The item title',
           value: 'title',
