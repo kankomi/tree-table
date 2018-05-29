@@ -22,7 +22,7 @@ export default {
     label: String
   },
   mounted() {
-    this.data = '';
+    this.data = this.$slots.default[0].text.trim();
   },
   data() {
     return {

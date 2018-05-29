@@ -2,7 +2,7 @@
     <v-container>
       <v-layout row wrap>
         <v-flex xs6 offset-xs3>
-          <TreeTable :data="items" :header="header"></TreeTable>
+          <TreeTable :data="items" :headers="header"></TreeTable>
         </v-flex>
       </v-layout>
     </v-container>
@@ -77,6 +77,11 @@ export default {
           value: 'summary',
           sortable: false,
           readonly: false
+        },
+        {
+          text: 'Depth',
+          value: 'depth',
+          sortable: false
         }
       ]
     };
