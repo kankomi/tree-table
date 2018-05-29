@@ -3,21 +3,24 @@
         <h1>TreeTable Component</h1>
         <v-data-table :items="tableItems">
             <template slot="items" slot-scope="props">
-                <td v-bind:class="{ hidden: props.item.hidden }">
-                    <span v-bind:style="{'padding-left': (props.item.depth * 20) + 'px'}">
+                <td v-for="(value, idx) of header" v-bind:key="idx" v-bind:class="{ hidden: props.item.hidden }">
+                    
+                    <span v-if="idx === 0">
+                      <span v-bind:style="{'padding-left': (props.item.depth * 20) + 'px'}">
+                        <span v-if="props.item.hasChildren">
+                            <v-icon class="clickable" v-if="!props.item.expanded" @click="expandChildren(props.item)">chevron_right</v-icon>
+                            <v-icon class="clickable" v-if="props.item.expanded" @click="collapseChildren(props.item)">expand_more</v-icon>
+                            {{props.item[value]}}
+                        </span>
+                        <span v-else style="padding-left: 28px">
+                          {{props.item[value]}}
+                        </span>
+                        
+                      </span>
                     </span>
-                    <span v-if="props.item.hasChildren">
-                        <v-icon class="clickable" v-if="!props.item.expanded" @click="expandChildren($event, props.item)">chevron_right</v-icon>
-                        <v-icon class="clickable" v-if="props.item.expanded" @click="collapseChildren($event, props.item)">expand_more</v-icon>
-                    </span>
-                    <span v-else style="padding-left: 24px"></span>
-                    {{props.item.id}}
-                </td>
-                <td v-bind:class="{ hidden: props.item.hidden }">
-                    {{props.item.title}}
-                </td>
-                <td v-bind:class="{ hidden: props.item.hidden }">
-                    {{props.item.depth}}
+                  <span v-else>
+                    {{props.item[value]}}
+                  </span>
                 </td>
             </template>
         </v-data-table>
@@ -35,7 +38,7 @@ export default {
   data() {
     return {
       tableItems: [],
-      collapseChildren(e, parent) {
+      collapseChildren(parent) {
         for (var item of this.tableItems) {
           if (item.parent === parent.id) {
             item.hidden = true;
@@ -44,7 +47,7 @@ export default {
 
         parent.expanded = false;
       },
-      expandChildren(e, parent) {
+      expandChildren(parent) {
         for (var item of this.tableItems) {
           if (item.parent === parent.id) {
             item.hidden = false;

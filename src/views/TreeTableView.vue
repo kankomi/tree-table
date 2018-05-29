@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       items: vals,
-      header: ['id', 'title']
+      header: ['title', 'id', 'depth']
     };
   }
 };
