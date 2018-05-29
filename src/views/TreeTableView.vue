@@ -43,7 +43,23 @@ export default {
   data() {
     return {
       items: vals,
-      header: ['title', 'id', 'depth']
+      header: [
+        {
+          text: 'The item title',
+          value: 'title',
+          sortable: false
+        },
+        {
+          text: 'An id',
+          value: 'id',
+          sortable: false
+        },
+        {
+          text: 'Depth of the item',
+          value: 'depth',
+          sortable: false
+        }
+      ]
     };
   }
 };

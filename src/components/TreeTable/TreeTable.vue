@@ -1,7 +1,13 @@
 <template>
     <div>
         <h1>TreeTable Component</h1>
-        <v-data-table :items="tableItems">
+        <v-data-table 
+          :items="tableItems" 
+          :headers="header"
+          hide-actions
+          class="elevation-1"
+          :disable-initial-sort="true"
+        >
             <template slot="items" slot-scope="props">
                 <td v-for="(value, idx) of header" v-bind:key="idx" v-bind:class="{ hidden: props.item.hidden }">
                     
@@ -10,16 +16,16 @@
                         <span v-if="props.item.hasChildren">
                             <v-icon class="clickable" v-if="!props.item.expanded" @click="expandChildren(props.item)">chevron_right</v-icon>
                             <v-icon class="clickable" v-if="props.item.expanded" @click="collapseChildren(props.item)">expand_more</v-icon>
-                            {{props.item[value]}}
+                            {{props.item[value.value]}}
                         </span>
                         <span v-else style="padding-left: 28px">
-                          {{props.item[value]}}
+                          {{props.item[value.value]}}
                         </span>
                         
                       </span>
                     </span>
                   <span v-else>
-                    {{props.item[value]}}
+                    {{props.item[value.value]}}
                   </span>
                 </td>
             </template>
@@ -33,6 +39,7 @@ import * as Helper from './Helper';
 export default {
   props: ['data', 'header'],
   mounted() {
+    console.log(this.header);
     this.tableItems = Helper.processData(this.data, null);
   },
   data() {
