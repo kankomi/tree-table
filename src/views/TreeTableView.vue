@@ -15,22 +15,27 @@ let vals = [
   {
     id: 1,
     title: 'root',
+    summary: 'Root element',
     children: [
       {
         id: 2,
         title: 'child1',
+        summary: 'element',
         children: [
           {
             id: 3,
-            title: 'child3'
+            title: 'child3',
+            summary: 'element'
           },
           {
             id: 5,
             title: 'child5',
+            summary: 'element',
             children: [
               {
                 id: 6,
-                title: 'child6'
+                title: 'child6',
+                summary: 'element'
               }
             ]
           }
@@ -39,6 +44,7 @@ let vals = [
       {
         id: 4,
         title: 'child4',
+        summary: 'element',
         children: []
       }
     ]
@@ -63,12 +69,14 @@ export default {
         {
           text: 'An id',
           value: 'id',
-          sortable: false
+          sortable: false,
+          readonly: true
         },
         {
-          text: 'Depth of the item',
-          value: 'depth',
-          sortable: false
+          text: 'Summary',
+          value: 'summary',
+          sortable: false,
+          readonly: false
         }
       ]
     };

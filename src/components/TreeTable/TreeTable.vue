@@ -10,7 +10,7 @@
         >
             <template slot="items" slot-scope="props">
                 <td v-for="(value, idx) of header" v-bind:key="idx" v-bind:class="{ hidden: props.item.hidden }">
-                    
+                    <!-- Expand/Collapse icon -->
                     <span v-if="idx === 0">
                       <span v-bind:style="{'padding-left': (props.item.depth * 20) + 'px'}">
                         <span v-if="props.item.hasChildren">
@@ -24,8 +24,19 @@
                         
                       </span>
                     </span>
+                    <!-- / Expand/Collapse icon -->
                   <span v-else>
-                    {{props.item[value.value]}}
+                    <span v-if="value.readonly === false">
+                      <editable-cell 
+                        label="Edit"
+                        @onEnter="props.item[value.value] = $event"
+                      >
+                        {{props.item[value.value]}}
+                      </editable-cell>
+                    </span>
+                    <span v-else>
+                      {{props.item[value.value]}}
+                    </span>
                   </span>
                 </td>
             </template>
@@ -35,9 +46,13 @@
 
 <script>
 import * as Helper from './Helper';
+import EditableCell from './EditableCell';
 
 export default {
   props: ['data', 'header'],
+  components: {
+    EditableCell
+  },
   mounted() {
     console.log(this.header);
     this.tableItems = Helper.processData(this.data, null);
@@ -68,10 +83,9 @@ export default {
         parent.expanded = true;
 
         for (var item of this.tableItems) {
-          if (
-            item.depth > parent.depth &&
-            this.getItemById(item.parent).expanded
-          ) {
+          var itemParent = this.getItemById(item.parent);
+          var parentIsExpanded = itemParent ? itemParent.expanded : true;
+          if (item.depth > parent.depth && parentIsExpanded) {
             item.hidden = false;
           }
         }
