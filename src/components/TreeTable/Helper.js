@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * Converts JSON-Data in 'tree form' into a flat array
+ * that can be used in a table.
+ *
+ * @param {Array} values The values.
+ * @param {{id: Number}} parent The parent object or null.
+ *
+ * @returns {Array} The table data arrray.
+ */
 function processData(values, parent) {
   var ret = [];
   var depth = 0;
@@ -21,7 +30,7 @@ function processData(values, parent) {
     ret.push(obj);
     obj.depth = depth;
     obj.hasChildren = false;
-    obj.hidden = obj.depth > 1; // only show root and first
+    obj.hidden = obj.depth > 1; // only show root and first level
     obj.expanded = obj.depth < 1;
     obj.parent = parent ? parent.id : null;
 
